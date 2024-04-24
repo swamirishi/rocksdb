@@ -303,6 +303,7 @@ set(JAVA_MAIN_CLASSES
   src/main/java/org/rocksdb/util/ReverseBytewiseComparator.java
   src/main/java/org/rocksdb/util/SizeUnit.java
   src/main/java/org/rocksdb/util/StdErrLogger.java
+  src/main/java/org/rocksdb/EntryType.java
   src/test/java/org/rocksdb/NativeComparatorWrapperTest.java
   src/test/java/org/rocksdb/RocksDBExceptionTest.java
   src/test/java/org/rocksdb/RocksNativeLibraryResource.java
@@ -730,6 +731,7 @@ if(${CMAKE_VERSION} VERSION_LESS "3.11.4")
           org.rocksdb.OptionsUtil
           org.rocksdb.PersistentCache
           org.rocksdb.PlainTableConfig
+          org.rocksdb.RawSstFileReaderIterator
           org.rocksdb.RateLimiter
           org.rocksdb.ReadOptions
           org.rocksdb.RemoveEmptyValueCompactionFilter

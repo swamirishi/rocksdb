@@ -6,9 +6,10 @@
 
 #pragma once
 
-#include "rocksdb/iterator.h"
+#include "rocksdb/raw_iterator.h"
 #include "table/internal_iterator.h"
 #include "rocksdb/utilities/types_util.h"
+#include "rocksdb/types.h"
 
 namespace ROCKSDB_NAMESPACE {
 // An iterator wrapper class used to wrap an `InternalIterator` created by API
@@ -16,7 +17,7 @@ namespace ROCKSDB_NAMESPACE {
 // the default allocator, not on an arena.
 // NOTE: Callers should ensure the wrapped `InternalIterator*` is a valid
 // pointer before constructing a `TableIterator` with it.
-class TableIterator : public Iterator {
+class TableIterator : public RawIterator {
   void reset(InternalIterator* iter) noexcept {
     if (iter_ != nullptr) {
       delete iter_;
@@ -93,12 +94,12 @@ class TableIterator : public Iterator {
     return Status::NotSupported("TableIterator does not support GetProperty.");
   }
 
-  uint64_t SequenceNumber() {
+  uint64_t SequenceNumber() const override {
     return ikey->sequence;
   }
 
-  ValueType type() {
-      return ikey->type;
+  EntryType type() const override {
+      return GetEntryType(ikey->type);
   }
 
  private:

@@ -6397,33 +6397,29 @@ class TxnDBWritePolicyJni {
   }
 };
 
-// The portal class for org.rocksdb.ValueType
-class ValueTypeJni {
+// The portal class for org.rocksdb.EntryType
+class EntryTypeJni {
  public:
-  static jbyte toJavaValueType(const ROCKSDB_NAMESPACE::ValueType& value_type) {
+  static jbyte toEntryType(const ROCKSDB_NAMESPACE::EntryType& value_type) {
     switch (value_type) {
-      case ROCKSDB_NAMESPACE::ValueType::kTypeDeletion:
-        return 0x0;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeValue:
+      case ROCKSDB_NAMESPACE::EntryType::kEntryPut:
         return 0x1;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeMerge:
+      case ROCKSDB_NAMESPACE::EntryType::kEntryDelete:
         return 0x2;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeSingleDeletion:
+      case ROCKSDB_NAMESPACE::EntryType::kEntrySingleDelete:
+        return 0x3;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryMerge:
+        return 0x4;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryRangeDeletion:
+        return 0x5;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryBlobIndex:
+        return 0x6;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryDeleteWithTimestamp:
         return 0x7;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeRangeDeletion:
-        return 0xF;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeColumnFamilyBlobIndex:
-        return 0x10;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeBlobIndex:
-        return 0x11;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeDeletionWithTimestamp:
-        return 0x14;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeWideColumnEntity:
-        return 0x16;
-      case ROCKSDB_NAMESPACE::ValueType::kTypeValuePreferredSeqno:
-        return 0x18;
-      default:
-        return 0xFF;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryWideColumnEntity:
+        return 0x8;
+      case ROCKSDB_NAMESPACE::EntryType::kEntryOther:
+        return 0x9;
     }
   }
 };

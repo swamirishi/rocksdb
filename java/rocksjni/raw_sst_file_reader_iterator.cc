@@ -23,7 +23,7 @@
  */
 jlong Java_org_rocksdb_RawSstFileReaderIterator_sequenceNumber(JNIEnv* env, jclass /*jcls*/,
                                                                jlong handle) {
-  auto* it = reinterpret_cast<ROCKSDB_NAMESPACE::TableIterator*>(handle);
+  auto* it = reinterpret_cast<ROCKSDB_NAMESPACE::RawIterator*>(handle);
   return static_cast<jlong>(it->SequenceNumber());
 }
 
@@ -34,7 +34,7 @@ jlong Java_org_rocksdb_RawSstFileReaderIterator_sequenceNumber(JNIEnv* env, jcla
  */
 jbyte Java_org_rocksdb_RawSstFileReaderIterator_type(JNIEnv* env, jclass /*jcls*/,
                                                     jlong handle) {
-    auto* it = reinterpret_cast<ROCKSDB_NAMESPACE::TableIterator*>(handle);
-    return ROCKSDB_NAMESPACE::ValueTypeJni::toJavaValueType(it->type());
+    auto* it = reinterpret_cast<ROCKSDB_NAMESPACE::RawIterator*>(handle);
+    return ROCKSDB_NAMESPACE::EntryTypeJni::toJavaEntryType(it->type());
 }
 

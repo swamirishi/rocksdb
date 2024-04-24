@@ -17,7 +17,6 @@ package org.rocksdb;
  * non-const method, all threads accessing the same RocksIterator must use
  * external synchronization.</p>
  *
- * @see RocksObject
  */
  public class RawSstFileReaderIterator extends SstFileReaderIterator {
 
@@ -29,8 +28,8 @@ package org.rocksdb;
     return sequenceNumber(nativeHandle_);
   }
 
-  public ValueType getType() {
-    return ValueType.getValueType(type(nativeHandle_));
+  public EntryType getType() {
+    return EntryType.getEntryType(type(nativeHandle_));
   }
 
   private static native long sequenceNumber(final long handle);

@@ -10,6 +10,7 @@
 #include "rocksdb/options.h"
 #include "rocksdb/slice.h"
 #include "rocksdb/table_properties.h"
+#include "rocksdb/raw_iterator.h"
 
 namespace ROCKSDB_NAMESPACE {
 
@@ -37,7 +38,7 @@ class SstFileReader {
   // This API is intended to provide a programmatic way to observe SST files
   // created by a DB, to be used by third party tools. DB optimization
   // capabilities like filling cache, read ahead are disabled.
-  std::unique_ptr<Iterator> NewTableIterator();
+  std::unique_ptr<RawIterator> NewTableIterator();
 
   std::shared_ptr<const TableProperties> GetTableProperties() const;
 

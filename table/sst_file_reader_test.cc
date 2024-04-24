@@ -588,7 +588,7 @@ class SstFileReaderTableIteratorTest : public DBTestBase {
                    /*env_do_fsync=*/false) {}
 
   void VerifyTableEntry(TableIterator* iter, const std::string& user_key,
-                        ValueType value_type,
+                        EntryType value_type,
                         std::optional<std::string> expected_value,
                         bool backward_iteration = false) {
     ASSERT_TRUE(iter->Valid());

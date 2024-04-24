@@ -101,7 +101,7 @@ Iterator* SstFileReader::NewIterator(const ReadOptions& roptions) {
   return res;
 }
 
-std::unique_ptr<Iterator> SstFileReader::NewTableIterator() {
+std::unique_ptr<RawIterator> SstFileReader::NewTableIterator() {
   auto r = rep_.get();
   InternalIterator* internal_iter = r->table_reader->NewIterator(
       r->roptions_for_table_iter, r->moptions.prefix_extractor.get(),
