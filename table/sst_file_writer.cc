@@ -15,6 +15,7 @@
 #include "table/block_based/block_based_table_builder.h"
 #include "table/sst_file_writer_collectors.h"
 #include "test_util/sync_point.h"
+#include <iostream>
 
 namespace ROCKSDB_NAMESPACE {
 
@@ -68,18 +69,17 @@ struct SstFileWriter::Rep {
     if (!builder) {
       return Status::InvalidArgument("File is not opened");
     }
-
     if (file_info.num_entries == 0) {
       file_info.smallest_key.assign(user_key.data(), user_key.size());
     } else {
       if (internal_comparator.user_comparator()->Compare(
               user_key, file_info.largest_key) <= 0) {
+        std::cout<<" "<<user_key.ToString(false)<<" "<<file_info.largest_key<<std::endl;
         // Make sure that keys are added in order
         return Status::InvalidArgument(
             "Keys must be added in strict ascending order.");
       }
     }
-
     assert(value_type == kTypeValue || value_type == kTypeMerge ||
            value_type == kTypeDeletion ||
            value_type == kTypeDeletionWithTimestamp);
@@ -93,6 +93,7 @@ struct SstFileWriter::Rep {
     // update file info
     file_info.num_entries++;
     file_info.largest_key.assign(user_key.data(), user_key.size());
+    std::cout<<" "<<user_key.ToString(false)<<" "<<file_info.largest_key<<std::endl;
     file_info.file_size = builder->FileSize();
 
     InvalidatePageCache(false /* closing */).PermitUncheckedError();
